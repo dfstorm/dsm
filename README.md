@@ -11,13 +11,17 @@ Call the script with a GET parameter "query" (by default). The value must be in 
 
 Exemple:
 
-```CREATE DATABASE mydatabase```
+```
+	CREATE DATABASE mydatabase
+```
 
 ### Create Table
 
 Exemple:
 
-```CREATE TABLE mytable IN mydatabase```
+```
+	CREATE TABLE mytable IN mydatabase
+```
 
 ### Insert
 
