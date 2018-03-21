@@ -9,15 +9,11 @@ Call the script with a GET parameter "query" (by default). The value must be in 
 
 ### Create Database
 
-Exemple:
-
 ```
 CREATE DATABASE mydatabase
 ```
 
 ### Create Table
-
-Exemple:
 
 ```
 CREATE TABLE mytable IN mydatabase
@@ -25,15 +21,11 @@ CREATE TABLE mytable IN mydatabase
 
 ### Insert
 
-Exemple:
-
 ```
 INSERT INTO mytable IN mydatabase ({"key":"value"})
 ```
 
 ### Select
-
-Exemple:
 
 ```
 SELECT mytable IN mydatabase (*)
@@ -47,15 +39,11 @@ SELECT mytable IN mydatabase ({"key":"value"})
 
 ### Update
 
-Exemple:
-
 ```
 UPDATE mytable IN mydatabase ({"UnidID":"UniqID_Value","key":"new_value"})
 ```
 
 ### Delete
-
-Exemple:
 
 ```
 DELETE mytable IN mydatabase ({"UnidID":"UniqID_Value"})
