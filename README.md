@@ -1,7 +1,7 @@
 
 # DSM
 
-Damn Small Memory. Warning: Not secure at all. Only for testing.
+Damn Small Memory; A file based database engine. Warning: Not secure at all. Only for testing.
 
 ## Usage
 
@@ -16,7 +16,7 @@ CREATE DATABASE mydatabase
 ### Create Table
 
 ```
-CREATE TABLE mytable IN mydatabase
+CREATE TABLE mytable IN mydatabase (field1,field2,[...])
 ```
 
 ### Insert
