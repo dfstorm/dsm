@@ -5,6 +5,7 @@
 		private	$datadir = "./data/";
 		public	$uid_prefix = "dsm_uid_";
 		public	$search_id = "uniqid";
+		public	$get_param = "query";
 		
 		public function delete($data, &$iFound)
 		{
@@ -119,7 +120,7 @@
 			}
 			else
 			{
-				echo "error?";
+				echo json_encode(array("icode" => 1, "message" => "Structural error."));
 			}
 			
 		}
@@ -227,7 +228,7 @@
 			if(!isset($_GET['query']))
 				echo json_encode(array("icode" => -1, "message" => "no query recived."));
 			else
-				$this->extract_query(base64_decode($_GET['query']));
+				$this->extract_query(base64_decode($_GET[$this->get_param]));
 		}
 	}
 	
