@@ -5,7 +5,7 @@ Damn Small Memory; A file based database engine. Warning: Not secure at all. Onl
 
 ## Usage
 
-Call the script with a GET parameter "query" (by default). The value must be in Base64. There is a "test.php" file to facilitate testing.
+Call the script with a GET parameter "query" (by default). The value must be in Base64. There is a "test.php" file to facilitate testing. There is no "access control".
 
 ### Create Database
 

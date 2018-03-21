@@ -6,7 +6,8 @@
 		public	$uid_prefix = "dsm_uid_";
 		public	$search_id = "uniqid";
 		public	$get_param = "query";
-		
+		public	$iKey = 1;
+		public	$arrKeys = array("abcd");
 		public function delete($data, &$iFound)
 		{
 			$iFound = 1;
@@ -228,7 +229,14 @@
 			if(!isset($_GET['query']))
 				echo json_encode(array("icode" => -1, "message" => "no query recived."));
 			else
-				$this->extract_query(base64_decode($_GET[$this->get_param]));
+				if($this->iKey)
+				{
+					if(isset($_GET['key']))
+						if(in_array($_GET['key'], $this->arrKeys))
+							$this->extract_query(base64_decode($_GET[$this->get_param]));
+				}
+				else
+					$this->extract_query(base64_decode($_GET[$this->get_param]));
 		}
 	}
 	
