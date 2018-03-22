@@ -7,12 +7,12 @@
 		public	$search_id = "uniqid";
 		public	$get_param = "query";
 		public	$iKey = 1;
-		public	$arrKeys = array("abcd");
+		public	$arrKeys = array("abc");
 		public function delete($data, &$iFound)
 		{
 			$iFound = 1;
 			$result = array();
-			$result['icode'] = 1;
+			$result['iCode'] = 1;
 			if ($this->vtb($data, $r))
 			{
 				$r['json'] = json_decode($r['json'], true);
@@ -26,7 +26,7 @@
 							unlink($this->datadir.$r['database'].'/'.$r['table'].'/'.$r['json'][$this->search_id].'/'.$val);
 						}
 						if(rmdir($this->datadir.$r['database'].'/'.$r['table'].'/'.$r['json'][$this->search_id].'/'))
-							$result['icode'] = 0;
+							$result['iCode'] = 0;
 					}
 				}
 			}
@@ -42,7 +42,7 @@
 				$r['json'] = json_decode($r['json'], true);
 				if (!isset($r['json'][$this->search_id]))
 				{
-					$result['icode'] = 1;
+					$result['iCode'] = 1;
 					$result['message'] = "Error: no key used";
 				}
 				else
@@ -51,7 +51,7 @@
 					foreach ($r['json'] as $kk => $vv)
 						if (in_array($kk, $m))
 							file_put_contents($this->datadir.$r['database'].'/'.$r['table'].'/'.$r['json'][$this->search_id].'/'.$kk, $vv);
-					$result['icode'] = 0;
+					$result['iCode'] = 0;
 				}
 			}
 			echo json_encode($result);
@@ -72,27 +72,28 @@
 				}
 				
 				$result = array();
-				
+				$result['content'] = array();
 				foreach ($d as $key => $value)
 				{
-					$result[$value] = array();
+					$result['content'][$value] = array();
 					$m = explode(",", file_get_contents($this->datadir.$r['database'].'/'.$r['table'].'/meta'));
 					// TODO: Will create problem. fetch all then remove. Bad.
 					foreach ($m as $skey => $svalue)
-						$result[$value][$svalue] = file_get_contents($this->datadir.$r['database'].'/'.$r['table'].'/'.$value.'/'.$svalue);
+						$result['content'][$value][$svalue] = file_get_contents($this->datadir.$r['database'].'/'.$r['table'].'/'.$value.'/'.$svalue);
+					$result['content'][$value]['uid'] = $value;
 					// Remove item that dont fit if mode allow it.
 					foreach ($m as $skey => $svalue)
 						if ($iMode == 1)
 							foreach ($r['json'] as $kk => $vv)
 								if ($kk == $svalue)
-									if ($result[$value][$svalue] != $vv)
-										unset($result[$value]);	
+									if ($result['content'][$value][$svalue] != $vv)
+										unset($result['content'][$value]);	
 				}
-				$result['icode'] = 0;
+				$result['iCode'] = 0;
 			}
 			else
 			{
-				$result['icode'] = 1;
+				$result['iCode'] = 1;
 			}
 			echo json_encode($result);
 		}
@@ -117,11 +118,11 @@
 					else
 						file_put_contents($this->datadir.$r['database'].'/'.$r['table'].'/'.$id.'/'.$value, "");
 				}
-				echo json_encode(array("icode" => 0, "uid" => $id));
+				echo json_encode(array("iCode" => 0, "uid" => $id));
 			}
 			else
 			{
-				echo json_encode(array("icode" => 1, "message" => "Structural error."));
+				echo json_encode(array("iCode" => 1, "message" => "Structural error."));
 			}
 			
 		}
@@ -160,7 +161,7 @@
 						}
 						else
 						{
-							echo json_encode(array("icode" => 1, "message" => "Table exist"));
+							echo json_encode(array("iCode" => 1, "message" => "Table exist"));
 						}
 					}
 				}
@@ -180,16 +181,16 @@
 				if(is_writable($this->datadir))
 				{
 					if(mkdir($this->datadir.$sName.'/', 0777, true))
-						echo json_encode(array("icode" => 0, "message" => "Database created"));
+						echo json_encode(array("iCode" => 0, "message" => "Database created"));
 					else
-						echo json_encode(array("icode" => 1, "message" => "Error: Database not created"));
+						echo json_encode(array("iCode" => 1, "message" => "Error: Database not created"));
 				}
 				else
 				{
-					echo json_encode(array("icode" => 1, "message" => "Error: Database not created : Data folder not writable."));
+					echo json_encode(array("iCode" => 1, "message" => "Error: Database not created : Data folder not writable."));
 				}
 			} else {
-				echo json_encode(array("icode" => 1, "message" => "Database exist"));
+				echo json_encode(array("iCode" => 1, "message" => "Database exist"));
 			}
 		}
 		
@@ -221,13 +222,13 @@
 			 
 			
 			if(!$iFound)
-				echo json_encode(array("icode" => 1, "message" => "Error while extrapolating the query."));
+				echo json_encode(array("iCode" => 1, "message" => "Error while extrapolating the query."));
 		}
 	
 		public function init()
 		{
 			if(!isset($_GET['query']))
-				echo json_encode(array("icode" => -1, "message" => "no query recived."));
+				echo json_encode(array("iCode" => -1, "message" => "no query recived."));
 			else
 				if($this->iKey)
 				{
